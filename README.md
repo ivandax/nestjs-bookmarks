@@ -18,6 +18,25 @@
 
  ![Alt text](image.png)
 
+## Prisma
+
+Prisma is an ORM (Object relation mapper)
+
+We have installed the Prisma extension to get proper formatting
+
+To initialize a prisma schema file, we run:
+
+`npx prisma init`
+
+Then after defining our schema, we can generate these tables in our DB (as long as it's already running in DOCKER)
+
+`npx prisma migrate dev`
+
+We can run a command to open the Prisma Studio to browse through our data:
+
+`npx prisma studio`
+
+
 
 
 ## Description
