@@ -36,7 +36,17 @@ We can run a command to open the Prisma Studio to browse through our data:
 
 `npx prisma studio`
 
+## Accesing data from the request
 
+Nest js gives us the option to reference the underlying Express variables, like Request:
+
+```
+  @Post('signup')
+  signup(@Req() req: Request) {
+    console.log(req.body);
+    return this.authService.signup();
+  }
+```
 
 
 ## Description
