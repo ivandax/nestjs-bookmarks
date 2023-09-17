@@ -28,7 +28,17 @@ export class AuthService {
     }
   }
 
-  login() {
-    return { status: 200, message: 'successful login' };
+  async login(dto: AuthDto) {
+    const user = await this.prisma.user.findUnique({
+      where: { email: dto.email },
+    });
+
+    if (!user) throw new BadRequestException('Email not found');
+
+    const pwMatches = await argon.verify(user.hash, dto.password);
+
+    if (!pwMatches) throw new BadRequestException('Wrong credentials');
+
+    return user;
   }
 }

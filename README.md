@@ -1,22 +1,22 @@
 ## Useful commands
 
- - Quickly create modules using the CLI, like a user module:
+- Quickly create modules using the CLI, like a user module:
 
- `nest g module user`
+`nest g module user`
 
- - Start the DB using docker:
+- Start the DB using docker:
 
- `docker compose up dev-db -d`
+`docker compose up dev-db -d`
 
- After it runs you can check it with:
+After it runs you can check it with:
 
- `docker ps`
+`docker ps`
 
- Copy the container id and check the logs with:
+Copy the container id and check the logs with:
 
- `docker logs <id>`
+`docker logs <id>`
 
- ![Alt text](image.png)
+![Alt text](image.png)
 
 ## Prisma
 
@@ -40,6 +40,22 @@ We can reset a migration with:
 
 `npx prisma migrate reset`
 
+Prisma has custom codes for many different possible errors, see more here:
+
+[Prisma Errors](https://www.prisma.io/docs/reference/api-reference/error-reference)
+
+We can re-run existing migrations:
+
+`npx prisma migrate deploy`
+
+## Connecting to the Docker container DB from external tools like pgAdmin 4
+
+![Alt text](image-1.png)
+
+- We can do it with psql too:
+
+`psql -h localhost -p 5434 -U postgres -d nest`
+
 ## Accesing data from the request
 
 Nest js gives us the option to reference the underlying Express variables, like Request:
@@ -51,7 +67,6 @@ Nest js gives us the option to reference the underlying Express variables, like 
     return this.authService.signup();
   }
 ```
-
 
 ## Description
 
