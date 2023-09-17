@@ -18,6 +18,10 @@ Copy the container id and check the logs with:
 
 ![Alt text](image.png)
 
+You can quickly create a new controller with the CLI like:
+
+`nest g controller user --no-spec`
+
 ## Prisma
 
 Prisma is an ORM (Object relation mapper)
