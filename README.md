@@ -36,6 +36,10 @@ We can run a command to open the Prisma Studio to browse through our data:
 
 `npx prisma studio`
 
+We can reset a migration with:
+
+`npx prisma migrate reset`
+
 ## Accesing data from the request
 
 Nest js gives us the option to reference the underlying Express variables, like Request:
