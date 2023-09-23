@@ -42,12 +42,7 @@ describe('App e2e', () => {
         email: '',
         password: 'somePassword',
       };
-      return pactum
-        .spec()
-        .post('/auth/signup')
-        .withBody(dto)
-        .expectStatus(400)
-        .inspect();
+      return pactum.spec().post('/auth/signup').withBody(dto).expectStatus(400);
     });
 
     it('Should fail sign up if password empty', () => {
@@ -55,12 +50,7 @@ describe('App e2e', () => {
         email: 'test@gmail.com',
         password: '',
       };
-      return pactum
-        .spec()
-        .post('/auth/signup')
-        .withBody(dto)
-        .expectStatus(400)
-        .inspect();
+      return pactum.spec().post('/auth/signup').withBody(dto).expectStatus(400);
     });
 
     it('Should signup', () => {
@@ -68,12 +58,7 @@ describe('App e2e', () => {
         email: 'test@gmail.com',
         password: 'somePassword',
       };
-      return pactum
-        .spec()
-        .post('/auth/signup')
-        .withBody(dto)
-        .expectStatus(201)
-        .inspect();
+      return pactum.spec().post('/auth/signup').withBody(dto).expectStatus(201);
     });
 
     it('Should fail login if email empty', () => {
@@ -81,12 +66,7 @@ describe('App e2e', () => {
         email: 'test@gmail.com',
         password: '',
       };
-      return pactum
-        .spec()
-        .post('/auth/login')
-        .withBody(dto)
-        .expectStatus(400)
-        .inspect();
+      return pactum.spec().post('/auth/login').withBody(dto).expectStatus(400);
     });
 
     it('Should fail login if password empty', () => {
@@ -94,12 +74,7 @@ describe('App e2e', () => {
         email: '',
         password: 'somePassword',
       };
-      return pactum
-        .spec()
-        .post('/auth/login')
-        .withBody(dto)
-        .expectStatus(400)
-        .inspect();
+      return pactum.spec().post('/auth/login').withBody(dto).expectStatus(400);
     });
 
     it('Should fail login if user does not exist', () => {
@@ -107,12 +82,7 @@ describe('App e2e', () => {
         email: 'someOtherUser@gmail.com',
         password: '1234',
       };
-      return pactum
-        .spec()
-        .post('/auth/login')
-        .withBody(dto)
-        .expectStatus(400)
-        .inspect();
+      return pactum.spec().post('/auth/login').withBody(dto).expectStatus(400);
     });
 
     it('Should login', () => {
@@ -125,14 +95,13 @@ describe('App e2e', () => {
         .post('/auth/login')
         .withBody(dto)
         .expectStatus(200)
-        .stores('userAccessToken', 'access_token')
-        .inspect();
+        .stores('userAccessToken', 'access_token');
     });
   });
 
   describe('User', () => {
     it('Should fail to get current user', () => {
-      return pactum.spec().get('/users/me').expectStatus(401).inspect();
+      return pactum.spec().get('/users/me').expectStatus(401);
     });
 
     it('Should get current user', () => {
@@ -141,8 +110,7 @@ describe('App e2e', () => {
         .get('/users/me')
         .withHeaders({ Authorization: 'Bearer $S{userAccessToken}' })
         .expectStatus(200)
-        .expectBodyContains('test@gmail.com')
-        .inspect();
+        .expectBodyContains('test@gmail.com');
     });
 
     it('Should fail to update current user without auth', () => {
@@ -150,12 +118,7 @@ describe('App e2e', () => {
         firstName: 'Bruce',
         lastName: 'Wayne',
       };
-      return pactum
-        .spec()
-        .patch('/users/me')
-        .withBody(dto)
-        .expectStatus(401)
-        .inspect();
+      return pactum.spec().patch('/users/me').withBody(dto).expectStatus(401);
     });
 
     it('Should update current user', () => {
@@ -171,8 +134,7 @@ describe('App e2e', () => {
         .expectStatus(200)
         .expectBodyContains('test@gmail.com')
         .expectBodyContains('Bruce')
-        .expectBodyContains('Wayne')
-        .inspect();
+        .expectBodyContains('Wayne');
     });
   });
 
