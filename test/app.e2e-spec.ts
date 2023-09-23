@@ -124,12 +124,25 @@ describe('App e2e', () => {
         .post('/auth/login')
         .withBody(dto)
         .expectStatus(200)
+        .stores('userAccessToken', 'access_token')
         .inspect();
     });
   });
 
   describe('User', () => {
-    it.todo('Should test user');
+    it('Should fail to get current user', () => {
+      return pactum.spec().get('/users/me').expectStatus(401).inspect();
+    });
+
+    it('Should get current user', () => {
+      return pactum
+        .spec()
+        .get('/users/me')
+        .withHeaders({ Authorization: 'Bearer $S{userAccessToken}' })
+        .expectStatus(200)
+        .expectBodyContains('test@gmail.com')
+        .inspect();
+    });
   });
 
   describe('Bookmarks', () => {
