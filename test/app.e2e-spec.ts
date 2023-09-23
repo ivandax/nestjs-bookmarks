@@ -4,6 +4,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 import * as pactum from 'pactum';
 import { AuthDto } from 'src/auth/dto';
+import { EditUserDto } from 'src/user/dto';
 
 describe('App e2e', () => {
   let app: INestApplication;
@@ -141,6 +142,36 @@ describe('App e2e', () => {
         .withHeaders({ Authorization: 'Bearer $S{userAccessToken}' })
         .expectStatus(200)
         .expectBodyContains('test@gmail.com')
+        .inspect();
+    });
+
+    it('Should fail to update current user without auth', () => {
+      const dto: EditUserDto = {
+        firstName: 'Bruce',
+        lastName: 'Wayne',
+      };
+      return pactum
+        .spec()
+        .patch('/users/me')
+        .withBody(dto)
+        .expectStatus(401)
+        .inspect();
+    });
+
+    it('Should update current user', () => {
+      const dto: EditUserDto = {
+        firstName: 'Bruce',
+        lastName: 'Wayne',
+      };
+      return pactum
+        .spec()
+        .patch('/users/me')
+        .withHeaders({ Authorization: 'Bearer $S{userAccessToken}' })
+        .withBody(dto)
+        .expectStatus(200)
+        .expectBodyContains('test@gmail.com')
+        .expectBodyContains('Bruce')
+        .expectBodyContains('Wayne')
         .inspect();
     });
   });
